@@ -1,3 +1,34 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# GitHub raw URL
+url = "https://raw.githubusercontent.com/mario-gellrich-zhaw/data_analytics/master/Week_LC/LC_02/BigmacPrice.csv"
+
+# CSV einlesen
+df = pd.read_csv(url)
+
+# Datum als Datetime
+df["date"] = pd.to_datetime(df["date"])
+
+# Überblick
+print(df.head())
+print(df.info())
+
+# Beispiel: nur USA
+usa = df[df["name"] == "United States"].sort_values("date")
+
+print(usa[["date", "dollar_price"]].head())
+
+# Preisentwicklung USA plotten
+plt.figure(figsize=(10, 5))
+plt.plot(usa["date"], usa["dollar_price"], marker="o", color="blue")
+plt.title("Big-Mac-Preis in den USA")
+plt.xlabel("Datum")
+plt.ylabel("Preis in US-Dollar")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
 "date","currency_code","name","local_price","dollar_ex","dollar_price"
 "2000-04-01",ARS,Argentina,2.5,1,2.5
 "2000-04-01",AUD,Australia,2.59,1,2.59
